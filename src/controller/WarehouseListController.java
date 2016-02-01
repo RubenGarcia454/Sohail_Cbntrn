@@ -34,13 +34,13 @@ public class WarehouseListController extends AbstractListModel<Warehouse> implem
 	 * Collection for storing Person object refs
 	 * Leave it abstract so we can possibly use different concrete list subclasses
 	 */
-	private static List<Warehouse> wList;
+	public static List<Warehouse> wList;
 	
 	/**
 	 * GUI container housing this object's list controller's JList
 	 * Allows this controller to tell the view to repaint() if models in list change
 	 */
-	private MDIChild myListView;
+	public static MDIChild myListView;
 	
 	public WarehouseListController(WarehouseList wl) {
 		super();
@@ -65,15 +65,13 @@ public class WarehouseListController extends AbstractListModel<Warehouse> implem
 	public MDIChild getMyListView() {
 		return myListView;
 	}
-	public static void removeWarehouse(Warehouse w) {
-		System.err.println(wList);
-		if(wList.contains(w)) {
-			wList.remove(w);			
-		}
-		System.err.println(wList);
-	}
+	
 	public void setMyListView(MDIChild myListView) {
 		this.myListView = myListView;
+	}
+
+	public static void addWarehouseToList(Warehouse w) {
+		wList.add(w);
 	}
 
 	/**

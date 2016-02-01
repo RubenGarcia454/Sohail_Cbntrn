@@ -10,7 +10,7 @@ public class Warehouse extends Observable {
 	private int capacity;
 
 	public Warehouse(){
-		id = nextId++;
+		id = WarehouseList.Wlist.size() + nextId++;
 		name=address=state=city=zipcode= "";
 		capacity = 0;
 	}
@@ -99,6 +99,8 @@ public class Warehouse extends Observable {
 
 	public void setName(String name) {
 		this.name = name;
+		//get ready to notify observers (notify is called in finishUpdate())
+				setChanged();
 	}
 
 	public String getAddress() {
@@ -107,6 +109,8 @@ public class Warehouse extends Observable {
 
 	public void setAddress(String address) {
 		this.address = address;
+		//get ready to notify observers (notify is called in finishUpdate())
+				setChanged();
 	}
 
 	public String getState() {
@@ -115,6 +119,8 @@ public class Warehouse extends Observable {
 
 	public void setState(String state) {
 		this.state = state;
+		//get ready to notify observers (notify is called in finishUpdate())
+				setChanged();
 	}
 
 	public String getCity() {
@@ -123,6 +129,8 @@ public class Warehouse extends Observable {
 
 	public void setCity(String city) {
 		this.city = city;
+		//get ready to notify observers (notify is called in finishUpdate())
+				setChanged();
 	}
 
 	public String getZipcode() {
@@ -131,6 +139,8 @@ public class Warehouse extends Observable {
 
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
+		//get ready to notify observers (notify is called in finishUpdate())
+				setChanged();
 	}
 
 	public int getCapacity() {
@@ -139,6 +149,8 @@ public class Warehouse extends Observable {
 
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+		//get ready to notify observers (notify is called in finishUpdate())
+				setChanged();
 	}
 
 	/**
@@ -149,7 +161,7 @@ public class Warehouse extends Observable {
 		return id;
 	}
 	
-
+	
 	/**
 	 * Tells the model that update has finished so it can finish the update
 	 * E.g., notify observers

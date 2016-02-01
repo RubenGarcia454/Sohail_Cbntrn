@@ -24,9 +24,9 @@ public class Launcher {
 		//init view(s)
 		WarehouseList warehouseList = new WarehouseList();
 		//add a few people
-		warehouseList.addWarehouseToList(new Warehouse("Bob's Bed", "15011 Jones Maltsberger Rd", "New Mexico","Alaster","54161", 2500));
-		warehouseList.addWarehouseToList(new Warehouse("Sue's Sofa", "11482 Perrin Beitel Rd", "California","San Andreas","6136",4000));
-		warehouseList.addWarehouseToList(new Warehouse("Tom's TV", "13919 Nacogdoches Rd", "Texas","San Antonio","35042",200));
+		WarehouseList.addWarehouseToList(new Warehouse("Bob's Bed", "15011 Jones Maltsberger Rd", "New Mexico","Alaster","54161", 2500));
+		WarehouseList.addWarehouseToList(new Warehouse("Sue's Sofa", "11482 Perrin Beitel Rd", "California","San Andreas","6136",4000));
+		WarehouseList.addWarehouseToList(new Warehouse("Tom's TV", "13919 Nacogdoches Rd", "Texas","San Antonio","35042",200));
 		//students have no money
 		MDIParent appFrame = new MDIParent("Assignment 1", warehouseList);
 		

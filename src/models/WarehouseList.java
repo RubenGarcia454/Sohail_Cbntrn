@@ -1,11 +1,12 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.List;	
+import java.util.List;
+import java.util.Observable;	
 
 public class WarehouseList {
 	
-	private List<Warehouse> Wlist;
+	public static List<Warehouse> Wlist;
 	
 	public WarehouseList() {
 		Wlist = new ArrayList<Warehouse>();
@@ -15,7 +16,7 @@ public class WarehouseList {
 	 * Add a Warehouse object to the list's collection
 	 * @param w Warehouse instance to add to the collection
 	 */
-	public void addWarehouseToList(Warehouse w) {
+	public static void addWarehouseToList(Warehouse w) {
 		Wlist.add(w);
 	}
 
@@ -23,7 +24,7 @@ public class WarehouseList {
 	 * Remove a Warehouse from the list
 	 * @return Warehouse w if found in list, otherwise null
 	 */
-	public Warehouse removeWarehouseFromList(Warehouse w) {
+	public static Warehouse removeWarehouseFromList(Warehouse w) {
 		//System.err.println(Wlist);
 		if(Wlist.contains(w)) {
 			Wlist.remove(w);	

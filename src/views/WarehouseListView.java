@@ -36,7 +36,7 @@ import models.WarehouseList;
  * @author marcos
  *
  */
-public class WarehouseListView extends MDIChild {	
+public class WarehouseListView extends MDIChild   {	
 	/**
 	 * GUI instance variables
 	 */
@@ -70,7 +70,7 @@ public class WarehouseListView extends MDIChild {
 		//add a Save button to write field changes back to model data
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		JButton button = new JButton("Remove");
+		JButton button = new JButton("Remove Warehouse");
 		button.setVisible(false);
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -80,7 +80,7 @@ public class WarehouseListView extends MDIChild {
 		});
 		panel.add(button);
 		
-		this.add(panel, BorderLayout.SOUTH);
+		this.add(panel, BorderLayout.NORTH);
 		//add event handler for double click
 		listWarehouse.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
@@ -114,7 +114,8 @@ public class WarehouseListView extends MDIChild {
 	public void RemoveWarehouse() {
 
 		selectedModel = getSelectedWarehouse();
-		WarehouseListController.removeWarehouse(selectedModel);
+		WarehouseList.removeWarehouseFromList(selectedModel);
+		
 	}
 
 	/**

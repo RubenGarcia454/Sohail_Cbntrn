@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,7 +18,7 @@ import javax.swing.JTextField;
 
 import controller.MDIChild;
 import controller.MDIParent;
-
+import controller.WarehouseListController;
 import models.Warehouse;
 import models.WarehouseList;
 
@@ -35,8 +36,8 @@ public class AddWarehouseView extends MDIChild implements Observer {
 	/**
 	 * Warehouse object shown in view instance
 	 */
-	private Warehouse myWarehouse;
-	private WarehouseList warehouseList = new WarehouseList();
+	public static Warehouse myWarehouse;
+	
 	/**
 	 * Fields for Warehouse data access
 	 */
@@ -123,7 +124,7 @@ public class AddWarehouseView extends MDIChild implements Observer {
 		fldZip.setText("");
 		fldCap.setText("");
 		//update window title
-		this.setTitle("New");
+		this.setTitle("New Warehouse");
 	}
 
 	/**
@@ -134,40 +135,62 @@ public class AddWarehouseView extends MDIChild implements Observer {
 	//this is called rollback
 	public void addWarehouse() {
 		//display any error message if field data are invalid
-		String testN = fldName.getText().trim();
-//		if(!myWarehouse.validName(testN)) {
-//			parent.displayChildMessage("Invalid name!");
-//			refreshFields();
-//			return;
-//		}
-		String testA = fldAddress.getText().trim();
-//		if(!myWarehouse.validAddress(testA)) {
-//			parent.displayChildMessage("Invalid addres!");
-//			refreshFields();
-//			return;
-//		}
-		String testS = fldState.getText().trim();
-//		if(!myWarehouse.validState(testS)) {
-//			parent.displayChildMessage("Invalid State!");
-//			refreshFields();
-//			return;
-//		}
-		String testC = fldCity.getText().trim();
-//		if(!myWarehouse.validCity(testC)) {
-//			parent.displayChildMessage("Invalid city!");
-//			refreshFields();
-//			return;
-//		}
-		String testZ = fldZip.getText().trim();
-//		if(!myWarehouse.validZip(testZ)) {
-//			parent.displayChildMessage("Invalid Zip!");
-//			refreshFields();
-//			return;
-//		}
 		
+		if (fldName.getText().equals("")){
+			parent.displayChildMessage("Empty Name!");
+		}
+		else if (fldAddress.getText().equals("")){
+			parent.displayChildMessage("Empty Address!");
+		}
+		else if (fldState.getText().equals("")){
+			parent.displayChildMessage("Empty State!");
+		}
+		else if (fldCity.getText().equals("")){
+			parent.displayChildMessage("Empty City!");
+		}
+		else if (fldZip.getText().equals("")){
+			parent.displayChildMessage("Empty Zip!");
+		}
+		else if (fldCap.getText().equals("")){
+			parent.displayChildMessage("Empty Capacity!");
+		}
+		
+		String testN = fldName.getText().trim();
+		if(!validName(testN)) {
+			parent.displayChildMessage("Invalid name!");
+			refreshFields();
+			return;
+		}
+		String testA = fldAddress.getText().trim();
+		 if(!validAddress(testA)) {
+			parent.displayChildMessage("Invalid addres!");
+			refreshFields();
+			return;
+		}
+		String testS = fldState.getText().trim();
+		if(!validState(testS)) {
+			parent.displayChildMessage("Invalid State!");
+			refreshFields();
+			return;
+		}
+		String testC = fldCity.getText().trim();
+		if(!validCity(testC)) {
+			parent.displayChildMessage("Invalid city!");
+			refreshFields();
+			return;
+		}
+		String testZ = fldZip.getText().trim();
+		if(!validZip(testZ)) {
+			parent.displayChildMessage("Invalid Zip!");
+			refreshFields();
+			return;
+		}
+	
 		
 		int testCap = 0;
+		
 		testCap = Integer.parseInt(fldCap.getText());
+		
 //		try {
 //			testCap = Integer.parseInt(fldCap.getText());
 //		} catch(Exception e) {
@@ -175,15 +198,19 @@ public class AddWarehouseView extends MDIChild implements Observer {
 //			refreshFields();
 //			return;
 //		}
-//		if(!myWarehouse.validStorage(testCap)) {
-//			parent.displayChildMessage("Invalid capacity!");
-//			refreshFields();
-//			return;
-//		}
+		if(validStorage(testCap)) {
+			parent.displayChildMessage("Invalid capacity!");
+			refreshFields();
+			return;
+		}
 		
+		Warehouse newWarehouse = new Warehouse(testN, testA, testS,testC,testZ, testCap); 
 		//fields are valid so save to model
+		
 		try {
-			warehouseList.addWarehouseToList(new Warehouse(testN, testA, testS,testC,testZ, testCap));
+			//WarehouseListController.addWarehouseToList(newWarehouse);
+			WarehouseList.addWarehouseToList(newWarehouse);
+//			WarehouseList.Wlist.add(WarehouseListController.wList.size()+1,newWarehouse);
 		} catch(Exception e) {
 			parent.displayChildMessage(e.getMessage());
 			refreshFields();
@@ -192,7 +219,59 @@ public class AddWarehouseView extends MDIChild implements Observer {
 		
 		parent.displayChildMessage("Added new warehouse");
 	}
+	//TODO check string for alphanumerics and symbols	
+		public boolean validCity(String c) {
+			if (c == null)
+					return false;
+			if (c.length() > 100)
+					return false;	
+			return true;
+		}
+		
+		//TODO check string for alphanumerics and symbols
+		public boolean validState(String s) {
+			if (s == null)
+				return false;
+			if (s.length() > 50)
+				return false;	
+			return true;
+		}
 
+		public boolean validStorage(int cap) {
+			if (cap < 0)
+				return false;
+			return true;
+		}
+
+		public boolean validZip(String z) {
+			try
+		    {
+		      int i = Integer.parseInt(z);
+		    }
+		    catch(NumberFormatException nfe)
+		    {
+		      return false;
+		    }
+			if(z.length() > 5)
+				return false; 
+			return true;
+		}
+
+		public boolean validAddress(String a) {
+			if (a == null)
+				return false;	
+			return true;
+		}
+		//TODO check string for Uniqueness
+		public boolean validName(String n) {
+			if (n == null)
+				return false;
+			if (n.length() > 250)
+				return false;	
+			return true;
+		}
+		
+		
 	/**
 	 * Subclass-specific cleanup
 	 */
